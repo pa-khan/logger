@@ -10,6 +10,10 @@ import LoggerGrid from '@/components/Logger/LoggerGrid/LoggerGrid.vue'
 import BaseIncDec from '@/components/base/BaseIncDec/BaseIncDec.vue'
 import BaseRange from '@/components/base/BaseRange/BaseRange.vue'
 
+/**
+ * Инициализация логера
+ * @type {Logger}
+ */
 const logger = new Logger()
 const loggs = ref<logger.Log[]>([])
 
@@ -38,17 +42,27 @@ const loggerWrap = ref<HTMLElement>()
 const mods = ['TRACE', 'ERROR', 'FATAL', 'INFO', 'DEBUG', 'WARN']
 
 onMounted(async () => {
+  /**
+   * Авторизация в клиенте
+   */
   await logger.login()
 
+  /**
+   * Подписка на события логов
+   */
   logger.subscribeLogs()
     .then((response: logger.LogsResult) => {
       isLoading.value = false
 
-      const [, , data] = response
+      const [,, data] = response
 
       if ('SubscribeError' in data) {
         console.error('Sub error')
       } else {
+        /**
+         * Парсинг сообщения
+         * @type {{v: string, l: "FATAL" | "ERROR" | "DEBUG" | "INFO" | "TRACE" | "WARN"}[]}
+         */
         const logs: logger.Log[] = data.Items.map(item => {
           return {
             l: item.Level,
