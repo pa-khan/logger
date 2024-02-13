@@ -1,0 +1,57 @@
+.BaseSelect {
+  cursor: pointer;
+  position: relative;
+  font-size: 0.8rem;
+  &__Area {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 0.6rem;
+    background: #eee;
+    padding: 0.6rem;
+    border-radius: 0.3rem;
+  }
+  &__Chevron {
+    --width: 1.2rem;
+    width: var(--width);
+    min-width: var(--width);
+    transition: .3s;
+  }
+  &__Drop {
+    position: absolute;
+    top: 100%;
+    left: 0;
+    right: 0;
+    opacity: 0;
+    transition: .3s;
+    pointer-events: none;
+    transform: translateY(1rem);
+    background: #eee;
+    border-radius: 0.3rem;
+    margin-top: 3px;
+  }
+  &__Item {
+    display: flex;
+    justify-content: space-between;
+    gap: 0.3rem;
+    padding: 0.3rem;
+  }
+  &__Check {
+    --width: 0.8rem;
+    width: var(--width);
+    min-width: var(--width);
+  }
+  &.--open {
+    z-index: 5;
+    .BaseSelect {
+      &__Drop {
+        transform: translateY(0);
+        opacity: 1;
+        pointer-events: auto;
+      }
+      &__Chevron {
+        transform: rotate(180deg);
+      }
+    }
+  }
+}

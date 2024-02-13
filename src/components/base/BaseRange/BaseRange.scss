@@ -1,0 +1,33 @@
+.BaseRange {
+  --handle-size: 0.8rem;
+  --handle-size-half-negative: calc(var(--handle-size) / 2 * -1 );
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+  height: 2rem;
+  &__Input {
+    position: absolute;
+    top: 0;
+    left: var(--handle-size-half-negative);
+    right: var(--handle-size-half-negative);
+    bottom: 0;
+    opacity: 0;
+    cursor: col-resize;
+  }
+  &__Handle {
+    position: absolute;
+    width: var(--handle-size);
+    height: var(--handle-size);
+    top: 50%;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    pointer-events: none;
+  }
+  &__Line {
+    background: #eee;
+    width: 100%;
+    height: 1px;
+    pointer-events: none;
+  }
+}
